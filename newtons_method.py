@@ -2,30 +2,15 @@
 
 import sys
 
-from typing import (Callable, Tuple)
+from typing import (Callable)
+import typing
 from fractions import (Fraction)
 
 
-EPSILON = Fraction(1, 10**6)
+EPSILON = 10e-6
 MAX_ITERATIONS = 100
 
-def newtons_method(f: Callable[[Fraction], Fraction],
-                   df: Callable[[Fraction], Fraction],
-                   x_n: Fraction,
-                   eps: Fraction = EPSILON) -> Tuple[int, Fraction]:
-    """
-    Compute an approximate solution to f(x) = 0 using Newton's Method.
-
-    Args:
-        f: mathematical function
-        df: derivative of f
-        x_n: an intitial guess (i.e., x_0)
-        eps: tolerance within which two guesses will be considered equal.
-
-    Returns:
-        A Tuple with the number of iterations and approximate solution.
-
-    """
+def newtons_method(f, df, x_n, eps=EPSILON):
 
     n = 0
 
@@ -40,12 +25,6 @@ def newtons_method(f: Callable[[Fraction], Fraction],
 
 
 def main():
-    """
-    This main function serves as the driver for the demo. Such functions
-    are not required in Python. However, we want to prevent unnecessary module
-    level (i.e., global) variables.
-    """
-
     try:
         initial_guess = float(sys.argv[1])
 
@@ -69,10 +48,8 @@ def main():
         num_iterations, solution_newton = newtons_method(f, df, initial_guess)
         fx_newton = f(solution_newton)
 
-        output_str = "x = {} | f(x) = {} | {} iterations"
-        print(output_str.format(solution_newton,
-                                str(fx_newton),
-                                str(num_iterations)))
+        output_str = "x = {:.4f} | f(x) = {:.4f} | {} iterations"
+        print(output_str.format(solution_newton, fx_newton, num_iterations))
 
     except ZeroDivisionError as error:
         print(str(error))
