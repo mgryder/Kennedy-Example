@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-//3
+//4
 import sys
 
 from typing import (Callable)
